@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra - MathCore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --primary-dark: #0052CC;
+            --secondary: #00D4AA;
+            --accent: #FF6B35;
+            --dark: #0A0E27;
+            --dark-card: #151B3D;
+            --text: #E8EAED;
+            --text-muted: #9CA3AF;
+            --border: #2D3454;
+            --success: #10B981;
+            --code-bg: #1E293B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .sidebar-section {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .sidebar-section ul {
+            list-style: none;
+        }
+
+        .sidebar-section li {
+            margin-bottom: 0.7rem;
+        }
+
+        .sidebar-section a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.4rem 0;
+        }
+
+        .sidebar-section a:hover,
+        .sidebar-section a.active {
+            color: var(--primary);
+        }
+
+        /* Content Area */
+        .content {
+            max-width: 800px;
+        }
+
+        .lesson-header {
+            margin-bottom: 3rem;
+        }
+
+        .lesson-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .lesson-meta {
+            display: flex;
+            gap: 2rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .lesson-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Lesson Content */
+        .lesson-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .lesson-content h2 {
+            font-size: 2rem;
+            margin: 2.5rem 0 1.2rem;
+            color: var(--text);
+        }
+
+        .lesson-content h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--secondary);
+        }
+
+        .lesson-content p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        /* Math Examples */
+        .math-example {
+            background: var(--dark-card);
+            border-left: 4px solid var(--primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .math-example h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .equation {
+            background: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            text-align: center;
+            color: var(--secondary);
+        }
+
+        .step {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border);
+        }
+
+        .step-number {
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        /* Note boxes */
+        .note {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .note::before {
+            content: '💡';
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .warning {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .warning::before {
+            content: '⚠️';
+            margin-right: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        /* Practice Problems */
+        .practice-section {
+            background: var(--dark-card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .practice-section h3 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .problem {
+            background: var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .problem-number {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .show-solution {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .show-solution:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .solution {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: var(--code-bg);
+            border-radius: 6px;
+            border-left: 3px solid var(--success);
+        }
+
+        .solution.visible {
+            display: block;
+        }
+
+        /* Navigation buttons */
+        .lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 968px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .lesson-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">MathCore</a>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / <a href="algebra.html">Algebra</a> / Linear Equations
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="main-layout">
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Algebra Topics</h3>
+                    <ul>
+                        <li><a href="#" class="active">Linear Equations</a></li>
+                        <li><a href="#">Quadratic Equations</a></li>
+                        <li><a href="#">Functions</a></li>
+                        <li><a href="#">Polynomials</a></li>
+                        <li><a href="#">Systems of Equations</a></li>
+                        <li><a href="#">Inequalities</a></li>
+                        <li><a href="#">Exponents</a></li>
+                        <li><a href="#">Logarithms</a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>On This Page</h3>
+                    <ul>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#solving">Solving Methods</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                        <li><a href="#practice">Practice</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="content">
+                <div class="lesson-header">
+                    <h1>Solving Linear Equations</h1>
+                    <div class="lesson-meta">
+                        <span>📚 Algebra</span>
+                        <span>⏱️ 15 min read</span>
+                        <span>📊 Beginner</span>
+                    </div>
+                </div>
+
+                <div class="lesson-content">
+                    <section id="intro">
+                        <h2>What is a Linear Equation?</h2>
+                        <p>A linear equation is an algebraic equation where each term is either a constant or the product of a constant and a single variable. Linear equations appear as straight lines when graphed and follow the general form:</p>
+                        
+                        <div class="equation">
+                            ax + b = c
+                        </div>
+
+                        <p>Where <em>a</em>, <em>b</em>, and <em>c</em> are constants, and <em>x</em> is the variable we're solving for. The goal is to isolate the variable on one side of the equation.</p>
+
+                        <div class="note">
+                            <strong>Key Concept:</strong> Whatever operation you perform on one side of the equation, you must perform on the other side to maintain equality.
+                        </div>
+                    </section>
+
+                    <section id="solving">
+                        <h2>Step-by-Step Solving Method</h2>
+                        <p>To solve linear equations, follow these systematic steps:</p>
+
+                        <h3>1. Simplify Both Sides</h3>
+                        <p>Combine like terms and eliminate parentheses using the distributive property.</p>
+
+                        <h3>2. Move Variable Terms to One Side</h3>
+                        <p>Add or subtract terms to get all variables on one side of the equation.</p>
+
+                        <h3>3. Move Constant Terms to the Other Side</h3>
+                        <p>Add or subtract to isolate the variable term.</p>
+
+                        <h3>4. Isolate the Variable</h3>
+                        <p>Divide or multiply to get the variable by itself.</p>
+
+                        <h3>5. Check Your Solution</h3>
+                        <p>Substitute your answer back into the original equation to verify it works.</p>
+                    </section>
+
+                    <section id="examples">
+                        <h2>Worked Examples</h2>
+
+                        <div class="math-example">
+                            <h4>Example 1: Basic Linear Equation</h4>
+                            <p>Solve: 3x + 7 = 22</p>
+                            
+                            <div class="step">
+                                <span class="step-number">Step 1:</span> Subtract 7 from both sides
+                                <div class="equation">3x + 7 - 7 = 22 - 7</div>
+                                <div class="equation">3x = 15</div>
+                            </div>
+
+                            <div class="step">
+                                <span class="step-number">Step 2:</span> Divide both sides by 3
+                                <div class="equation">3x ÷ 3 = 15 ÷ 3</div>
+                                <div class="equation">x = 5</div>
+                            </div>
+
+                            <div class="step">
+                                <span class="step-number">Step 3:</span> Check the solution
+                                <div class="equation">3(5) + 7 = 15 + 7 = 22 ✓</div>
+                            </div>
+                        </div>
+
+                        <div class="math-example">
+                            <h4>Example 2: Equation with Variables on Both Sides</h4>
+                            <p>Solve: 5x - 3 = 2x + 9</p>
+                            
+                            <div class="step">
+                                <span class="step-number">Step 1:</span> Subtract 2x from both sides
+                                <div class="equation">5x - 2x - 3 = 2x - 2x + 9</div>
+                                <div class="equation">3x - 3 = 9</div>
+                            </div>
+
+                            <div class="step">
+                                <span class="step-number">Step 2:</span> Add 3 to both sides
+                                <div class="equation">3x - 3 + 3 = 9 + 3</div>
+                                <div class="equation">3x = 12</div>
+                            </div>
+
+                            <div class="step">
+                                <span class="step-number">Step 3:</span> Divide both sides by 3
+                                <div class="equation">x = 4</div>
+                            </div>
+                        </div>
+
+                        <div class="math-example">
+                            <h4>Example 3: Equation with Fractions</h4>
+                            <p>Solve: (x/2) + 3 = 7</p>
+                            
+                            <div class="step">
+                                <span class="step-number">Step 1:</span> Subtract 3 from both sides
+                                <div class="equation">x/2 = 4</div>
+                            </div>
+
+                            <div class="step">
+                                <span class="step-number">Step 2:</span> Multiply both sides by 2
+                                <div class="equation">x = 8</div>
+                            </div>
+                        </div>
+
+                        <div class="warning">
+                            <strong>Common Mistake:</strong> Don't forget to distribute negative signs when simplifying! For example: -(2x - 3) becomes -2x + 3, not -2x - 3.
+                        </div>
+                    </section>
+
+                    <section id="practice">
+                        <div class="practice-section">
+                            <h3>Practice Problems</h3>
+                            <p>Try solving these problems on your own. Click "Show Solution" when you're ready to check your work.</p>
+
+                            <div class="problem">
+                                <div class="problem-number">Problem 1</div>
+                                <p>Solve: 2x + 5 = 17</p>
+                                <button class="show-solution" onclick="toggleSolution(1)">Show Solution</button>
+                                <div class="solution" id="solution1">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>2x + 5 = 17</p>
+                                    <p>2x = 12 (subtract 5 from both sides)</p>
+                                    <p><strong>x = 6</strong> (divide both sides by 2)</p>
+                                </div>
+                            </div>
+
+                            <div class="problem">
+                                <div class="problem-number">Problem 2</div>
+                                <p>Solve: 4x - 7 = 3x + 2</p>
+                                <button class="show-solution" onclick="toggleSolution(2)">Show Solution</button>
+                                <div class="solution" id="solution2">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>4x - 7 = 3x + 2</p>
+                                    <p>x - 7 = 2 (subtract 3x from both sides)</p>
+                                    <p><strong>x = 9</strong> (add 7 to both sides)</p>
+                                </div>
+                            </div>
+
+                            <div class="problem">
+                                <div class="problem-number">Problem 3</div>
+                                <p>Solve: -3(x - 4) = 18</p>
+                                <button class="show-solution" onclick="toggleSolution(3)">Show Solution</button>
+                                <div class="solution" id="solution3">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>-3(x - 4) = 18</p>
+                                    <p>-3x + 12 = 18 (distribute -3)</p>
+                                    <p>-3x = 6 (subtract 12)</p>
+                                    <p><strong>x = -2</strong> (divide by -3)</p>
+                                </div>
+                            </div>
+
+                            <div class="problem">
+                                <div class="problem-number">Problem 4</div>
+                                <p>Solve: (x/4) + 2 = 5</p>
+                                <button class="show-solution" onclick="toggleSolution(4)">Show Solution</button>
+                                <div class="solution" id="solution4">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>x/4 + 2 = 5</p>
+                                    <p>x/4 = 3 (subtract 2)</p>
+                                    <p><strong>x = 12</strong> (multiply by 4)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="lesson-nav">
+                        <a href="index.html" class="nav-button">← Back to Topics</a>
+                        <a href="#" class="nav-button">Quadratic Equations →</a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function toggleSolution(num) {
+            const solution = document.getElementById('solution' + num);
+            solution.classList.toggle('visible');
+            const button = solution.previousElementSibling;
+            button.textContent = solution.classList.contains('visible') ? 'Hide Solution' : 'Show Solution';
+        }
+
+        // Smooth scroll for sidebar links
+        document.querySelectorAll('.sidebar a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
