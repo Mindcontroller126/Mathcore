@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra - MathCore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0066FF;
+            --secondary: #00D4AA;
+            --dark: #0A0E27;
+            --dark-card: #151B3D;
+            --text: #E8EAED;
+            --text-muted: #9CA3AF;
+            --border: #2D3454;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .breadcrumb {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .page-header {
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .subtopics-section {
+            padding: 2rem 0 4rem;
+        }
+
+        .subtopic-category {
+            margin-bottom: 3rem;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .lesson-card {
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text);
+            display: block;
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.2);
+        }
+
+        .lesson-number {
+            display: inline-block;
+            background: rgba(0, 102, 255, 0.2);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .lesson-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .lesson-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .lesson-status {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .status-available {
+            color: var(--secondary);
+        }
+
+        .status-coming-soon {
+            color: var(--text-muted);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--dark-card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .back-button:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">MathCore</a>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / Algebra
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>📐 Algebra</h1>
+            <p>Master algebraic concepts from basics to advanced. Click on any lesson to start learning!</p>
+        </div>
+
+        <a href="index.html" class="back-button">← Back to All Topics</a>
+
+        <div class="subtopics-section">
+            
+            <!-- Linear Equations -->
+            <div class="subtopic-category">
+                <h2 class="category-title">Linear Equations & Expressions</h2>
+                <div class="lessons-grid">
+                    <a href="algebra-linear-equations.html" class="lesson-card">
+                        <span class="lesson-number">Lesson 1</span>
+                        <h3>Solving Linear Equations</h3>
+                        <p>Learn to solve one-variable equations using inverse operations and balance method.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon - create your images!
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 2</span>
+                        <h3>Equations with Variables on Both Sides</h3>
+                        <p>Master equations where the variable appears on both sides of the equal sign.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 3</span>
+                        <h3>Word Problems with Linear Equations</h3>
+                        <p>Translate real-world problems into equations and solve them.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 4</span>
+                        <h3>Simplifying Algebraic Expressions</h3>
+                        <p>Combine like terms, use distributive property, and simplify expressions.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quadratic Equations -->
+            <div class="subtopic-category">
+                <h2 class="category-title">Quadratic Equations & Functions</h2>
+                <div class="lessons-grid">
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 5</span>
+                        <h3>Introduction to Quadratics</h3>
+                        <p>Understand what makes an equation quadratic and recognize standard form.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 6</span>
+                        <h3>Factoring Quadratics</h3>
+                        <p>Learn techniques for factoring quadratic expressions including trinomials.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 7</span>
+                        <h3>Quadratic Formula</h3>
+                        <p>Use the quadratic formula to solve any quadratic equation.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 8</span>
+                        <h3>Graphing Parabolas</h3>
+                        <p>Understand vertex form, axis of symmetry, and how to graph quadratic functions.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 9</span>
+                        <h3>Completing the Square</h3>
+                        <p>Convert standard form to vertex form and solve quadratics by completing the square.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Functions & Relations -->
+            <div class="subtopic-category">
+                <h2 class="category-title">Functions & Relations</h2>
+                <div class="lessons-grid">
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 10</span>
+                        <h3>What is a Function?</h3>
+                        <p>Understand functions, domain, range, and function notation.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 11</span>
+                        <h3>Linear Functions & Graphing</h3>
+                        <p>Graph linear functions, find slope and y-intercept, write equations.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 12</span>
+                        <h3>Slope-Intercept Form</h3>
+                        <p>Master y = mx + b and convert between different forms of linear equations.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 13</span>
+                        <h3>Systems of Equations</h3>
+                        <p>Solve systems using graphing, substitution, and elimination methods.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Polynomials & Exponents -->
+            <div class="subtopic-category">
+                <h2 class="category-title">Polynomials & Exponents</h2>
+                <div class="lessons-grid">
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 14</span>
+                        <h3>Exponent Laws</h3>
+                        <p>Learn product rule, quotient rule, power rule, and zero/negative exponents.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 15</span>
+                        <h3>Polynomial Operations</h3>
+                        <p>Add, subtract, and multiply polynomials with multiple terms.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 16</span>
+                        <h3>Factoring Polynomials</h3>
+                        <p>Factor out GCF, factor by grouping, and special products.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Inequalities -->
+            <div class="subtopic-category">
+                <h2 class="category-title">Inequalities</h2>
+                <div class="lessons-grid">
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 17</span>
+                        <h3>Solving Linear Inequalities</h3>
+                        <p>Solve and graph one-variable inequalities on number lines.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+
+                    <a href="#" class="lesson-card">
+                        <span class="lesson-number">Lesson 18</span>
+                        <h3>Compound Inequalities</h3>
+                        <p>Work with "and" and "or" inequalities and represent solutions.</p>
+                        <div class="lesson-status status-coming-soon">
+                            ⏳ Coming soon
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <a href="index.html" class="back-button">← Back to All Topics</a>
+    </main>
+
+    <script>
+        // Prevent navigation to placeholder lessons
+        document.querySelectorAll('.lesson-card[href="#"]').forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This lesson is coming soon! Create your Canva images and send them to add this lesson.');
+            });
+        });
+    </script>
+</body>
+</html>
