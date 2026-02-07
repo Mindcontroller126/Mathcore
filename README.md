@@ -19,18 +19,6 @@ Welcome to your new math education website! This is a complete, ready-to-deploy 
 ✅ Ad-ready layout
 ✅ SEO optimized structure
 
-## 🚀 Quick Start
-
-### 1. Get Online in 5 Minutes (GitHub Pages)
-
-1. Go to github.com and create a free account
-2. Click "New repository"
-3. Name it "mathcore" (or anything you like)
-4. Upload these HTML files
-5. Go to Settings → Pages
-6. Select "main" branch → Save
-7. Your site is live at: yourusername.github.io/mathcore
-
 ### 2. Start Creating Content
 
 Use `algebra-linear-equations.html` as a template:
